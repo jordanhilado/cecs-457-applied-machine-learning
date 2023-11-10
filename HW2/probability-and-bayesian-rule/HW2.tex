@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[all]{xy}
+
+
+\usepackage{amsmath,amsthm,amssymb,color,latexsym}
+\usepackage{geometry}        
+\geometry{letterpaper}    
+\usepackage{graphicx}
+
+\newtheorem{exercise}{Exercise}
+
+\newenvironment{solution}[1][\it{Solution}]{\textbf{#1. } }{$\square$}
+
+
+\begin{document}
+\noindent CECS 457 Section 02, Fall 2023\hfill HW2: Probability and Bayesian Rule \\
+Jordan Ali Hilado (11/09/2023)
+
+\hrulefill
+
+% Exercise 1
+\begin{exercise}
+Give a real-world example of a joint distribution $P(x, y)$ where $x$ is discrete and $y$ is continuous. Do not use examples involving coins and dice. 1 point
+\end{exercise}
+\begin{solution}
+A real-world example of a join distribution that has a discrete $x$ and a continuous $y$ is the probability of the number of games an NBA player has played in the regular season, and the number of hours spent practicing. 
+The number of games played is discrete because it is a countable number and is limited between 0 and the maximum number of games you can play in a regular season, which is 82, and the number of hours spent practicing is continuous because it can be any real number.
+\end{solution} 
+
+% Exercise 2
+\begin{exercise}
+What remains if I marginalize a joint distribution $P(v, w, x, y, z)$ over five variables with respect to variables $w$ and $y$? What remains if I marginalize the resulting distribution with respect to $v$? 1 point
+\end{exercise}
+\begin{solution}
+When you marginalize $P(v, w, x, y, z)$ over five variables with respect to $w$ and $y$, you are left with $P'(v, x, z) = \sum_{w}\sum_{y}P(v, w, x, y, z)$ because you are summing over all possible values of $w$ and $y$. 
+When you marginalize $P'(v, x, z)$ with respect to $v$, you are left with $P''(x, z) = \sum_{v}P'(v, x, z)$ because you are summing over all possible values of $v$.
+\end{solution}
+
+% Exercise 3
+\begin{exercise}
+If variables $x$ and $y$ are independent and variables $x$ and $z$ are independent, does it follow that variables $y$ and $z$ are independent? 1 point
+\end{exercise}
+\begin{solution}
+No, it does not necessarily follow that the variables $y$ and $z$ are independent. 
+The independence of $x$ and $y$ implies only that the information of $x$ does not provide any information about the value of $y$, and the independence of $x$ and $z$ implies only that the information of $x$ does not provide any information about the value of $z$. 
+However, the independence of $x$ and $y$ and the independence of $x$ and $z$ does not imply that the information of $y$ does not provide any information about the value of $z$, and vice versa.
+Independence between certain pairs of variables does not necessarily guarantee independence between all variables.
+\end{solution}
+
+% Exercise 4
+\begin{exercise}
+Show that the following relation is true (1 point):
+\begin{equation}
+P(w, x, y, z) = P(x, y)P(z \mid w, x, y)P(w \mid x, y)
+\end{equation}
+\end{exercise}
+\begin{solution}
+To show that the above relation is true, we need to use the definition of conditional probability as well as the multiplication rule of probability. 
+The definition of conditional probability states that $P(A \mid B) = \frac{P(A \bigcap B)}{P(B)}$, and the multiplication rule of probability states that $P(A \bigcap B) = P(A \mid B)P(B)$. 
+We can then extend the multiplication rule of probability to three variables, which states that 
+$P(A \bigcap B \bigcap C) = P(C \mid A \bigcap B)P(B \mid A)P(A)$.
+Using these two rules, we can show that the above relation is true. We can make the following associations:  
+$P(A) = P(x, y)$, $P(B) = P(w)$, and $P(C) = P(z)$.
+Given those associations, we can rewrite the above relation as follows: 
+$P(A \bigcap B \bigcap C) = P(w, x, y, z)$, $P(C \mid A \bigcap B) = P(z \mid w, x, y)$, $P(B \mid A) = P(w \mid x, y)$, and $P(A) = P(x, y)$.
+Therefore, using the multiplication rule of probability, we can assume that the above relation is true. 
+This is because as per the multiplication rule of probability, 
+$P(A \bigcap B \bigcap C) = P(C \mid A \bigcap B)P(B \mid A)P(A)$, we can substitute the associations we made earlier to get the following:
+$P(w, x, y, z) = P(x, y)P(z \mid w, x, y)P(w \mid x, y)$.
+\end{solution}
+
+% Exercise 5
+\begin{exercise}
+In my pocket there are two coins. Coin 1 is a fair coin, so the probability $P(h = 1 \mid c = 1)$ of getting heads is 0.5 and the likelihood $P(h = 0 \mid c = 1)$ of getting tails is also 0.5.
+Coin 2 is biased, so the probability $P(h = 1 \mid c = 2)$ of getting heads is 0.8 and the probability $P(h = 0 \mid c = 2)$ of getting tails is 0.2. 
+I reach into my pocket and draw one of the coins at random. I assume there is an equal chance I might have picked either coin. Then I flip that coin and observe a head. \newline
+\newline Think about the Bayesian framework and describe what is the prior, what is the likelihood in this case. 1 point \newline
+\newline Use Bayes' rule to compute the posterior probability that I chose coin 2. 3 points
+\end{exercise}
+\begin{solution}
+When considering the Bayesian framework, the prior probability is our initial belief or probability about a hypothesis before considering new evidence. 
+In this case, our prior probability of choosing coin 1 is $P(c = 1) = 0.5$, while the prior probability of choosing coin 2 is $P(c = 2) = 0.5$.
+The likelihood is the probability of the evidence given the hypothesis, and in this case the evidence is flipping a coin and getting a head. 
+For coin 1, $P(h = 1 \mid c = 1) = 0.5$, and for coin 2, $P(h = 1 \mid c = 2) = 0.8$.
+Using Bayes' rule and the law of total probability, we can compute the posterior probability of choosing coin 2. 
+The law of total probability in this case will be represented by $P(h = 1 \mid c = 1)P(c = 1) + P(h = 1 \mid c = 2)P(c = 2)$.
+Using Bayes' rule, we can compute the posterior probability of choosing coin 2 as follows:
+\begin{equation}
+P(c = 2 \mid h = 1) = \frac{P(h = 1 \mid c = 2)P(c = 2)}{P(h = 1 \mid c = 1)P(c = 1) + P(h = 1 \mid c = 2)P(c = 2)}
+\end{equation}
+When plugging in the values, we get the following:
+\begin{equation}
+P(c = 2 \mid h = 1) = \frac{0.8(0.5)}{0.5(0.5) + 0.8(0.5)} = \frac{0.4}{0.65} = 0.615
+\end{equation}
+Therefore, the posterior probability of choosing coin 2 is 0.615.
+\end{solution}
+
+% Exercise 6
+\begin{exercise}
+Consider a biased die where the probabilities of rolling sides \{1,2,3,4,5,6\} are \{1/12,1/12,1/12,1/12,1/6,1/2\}, respectively. What is the expected value of the outcome? If I roll the die twice, what is the expected value of the sum of the two rolls? 2 points
+\end{exercise}
+\begin{solution}
+The expected value of the outcome is the sum of the product of the probability of each outcome and the value of each outcome.\
+The following represents the expected value of the outcome in this case:
+\begin{equation}
+E(x) = \sum_{i = 1}^{6}P(x = i)i = \frac{1}{12}(1) + \frac{1}{12}(2) + \frac{1}{12}(3) + \frac{1}{12}(4) + \frac{1}{6}(5) + \frac{1}{2}(6) = 14/3 = 4.\overline{6}
+\end{equation}
+Therefore, the expected value of the outcome is $4.\overline{6}$. If you roll the die twice, the expected value of the sum of the two rolls is $2(4.\overline{6}) = 9.\overline{3}$.
+\end{solution}
+
+\end{document}
